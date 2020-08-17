@@ -12,6 +12,7 @@ namespace SeleniumTest_1
         const string edostavkaURL = "https://e-dostavka.by/";
         const string tel = "375296502259";
         const string pass = "123456Aa";
+        const int timeWait = 5;
 
         IWebDriver driver = new ChromeDriver();
         [OneTimeSetUp] 
@@ -41,7 +42,7 @@ namespace SeleniumTest_1
         [Test]
         public void LOGIN_CHECK_TEST()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeWait));
             wait.Until(ExpectedConditions.TitleContains("Единый аккаунт для всех проектов"));
             Assert.AreEqual("https://e-account.by/login/", driver.Url);
         }
@@ -70,20 +71,17 @@ namespace SeleniumTest_1
             submit.Click();
 
             //Ожидание открытия страницы
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeWait));
             wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("user_fio")));
 
             //Проверка перехода на страницу https://e-dostavka.by/
             string myUrl = driver.Url;
-            Assert.AreEqual("https://e-dostavka.by/", myUrl);
+            Assert.AreEqual(edostavkaURL, myUrl);
 
             //Проверка корректности авторизации
             IWebElement userFIO = driver.FindElement(By.ClassName("user_fio"));
             string checkFIO = userFIO.Text;
             Assert.True(checkFIO == "Юрий\r\nТеуш");
-            
-
-
         }
     }
 }
