@@ -12,10 +12,11 @@ namespace SeleniumTest_1
         const string edostavkaURL = "https://e-dostavka.by/";
         const string tel = "375296502259";
         const string pass = "123456Aa";
-        const int timeWait = 10;
         const string FIO = "Юрий\r\nТеуш";
+        const int timeWait = 10;
 
         IWebDriver driver = new ChromeDriver();
+
         [OneTimeSetUp] 
         public void OneTimeSetUp()
         {

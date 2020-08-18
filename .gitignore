@@ -1,0 +1,5 @@
+/.vs/
+/packages/
+/Test E-dostavka/bin/*/
+/Test E-dostavka/obj
+/*.doc
