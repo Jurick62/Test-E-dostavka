@@ -12,7 +12,8 @@ namespace SeleniumTest_1
         const string edostavkaURL = "https://e-dostavka.by/";
         const string tel = "375296502259";
         const string pass = "123456Aa";
-        const int timeWait = 5;
+        const int timeWait = 10;
+        const string FIO = "Юрий\r\nТеуш";
 
         IWebDriver driver = new ChromeDriver();
         [OneTimeSetUp] 
@@ -39,7 +40,7 @@ namespace SeleniumTest_1
         {
         }
 
-        [Test]
+        [Test, Order(1)]
         public void LOGIN_CHECK_TEST()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeWait));
@@ -47,7 +48,7 @@ namespace SeleniumTest_1
             Assert.AreEqual("https://e-account.by/login/", driver.Url);
         }
 
-        [Test]
+        [Test, Order(2)]
         public void AUTHENTICATION_TEST() 
         {
             IWebElement person = driver.FindElement(By.ClassName("tab-1-active"));
@@ -74,7 +75,7 @@ namespace SeleniumTest_1
 
             IWebElement userFIO = driver.FindElement(By.ClassName("user_fio"));
             string checkFIO = userFIO.Text;
-            Assert.True(checkFIO == "Юрий\r\nТеуш");
+            Assert.AreEqual(checkFIO, FIO);
         }
     }
 }
