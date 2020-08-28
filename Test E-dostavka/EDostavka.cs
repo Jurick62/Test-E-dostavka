@@ -1,7 +1,10 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System;
+using Test_E_dostavka.Pages;
+using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumTest_1
@@ -9,20 +12,21 @@ namespace SeleniumTest_1
     [TestFixture]
     public class Test
     {
-        const string edostavkaURL = "https://e-dostavka.by/";
-        const string tel = "375296502259";
-        const string pass = "123456Aa";
+        const string EDOSTAVKA_URL = "https://e-dostavka.by/";
+        const string TEL = "375296502259";
+        const string PASS = "123456Aa";
         const string FIO = "Юрий\r\nТеуш";
-        const int timeWait = 10;
+        const int TIME_WAIT = 10;
 
         IWebDriver driver = new ChromeDriver();
 
         [OneTimeSetUp] 
         public void OneTimeSetUp()
         {
-            driver.Url = edostavkaURL;
-            IWebElement loginButton = driver.FindElement(By.LinkText("Войти"));
-            loginButton.Click();
+            driver.Url = EDOSTAVKA_URL;
+            var pageMain = new PageMain();
+            PageFactory.InitElements(driver, pageMain);
+            pageMain.LoginButton.Click();
         }
 
         [OneTimeTearDown] 
@@ -44,7 +48,7 @@ namespace SeleniumTest_1
         [Test, Order(1)]
         public void LOGIN_CHECK_TEST()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeWait));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TIME_WAIT));
             wait.Until(ExpectedConditions.TitleContains("Единый аккаунт для всех проектов"));
             Assert.AreEqual("https://e-account.by/login/", driver.Url);
         }
@@ -52,31 +56,28 @@ namespace SeleniumTest_1
         [Test, Order(2)]
         public void AUTHENTICATION_TEST() 
         {
-            IWebElement person = driver.FindElement(By.ClassName("tab-1-active"));
-            Assert.IsNotNull(person);
 
-            IWebElement loginName = driver.FindElement(By.CssSelector("input[type = 'tel']"));
-            loginName.Click();
-            loginName.SendKeys(tel);
-            Assert.AreEqual(loginName.GetAttribute("value"), "+375 (29) 650-22-59");
+            var pageLogin = new PageLogin();
+            PageFactory.InitElements(driver, pageLogin);
+            Assert.IsNotNull(pageLogin.LoginPerson);
 
-            IWebElement password = driver.FindElement(By.Name("Password"));
-            password.Click();
-            password.SendKeys(pass);
-            Assert.AreEqual(password.GetAttribute("type"), "password");
+            pageLogin.LoginName.Click();
+            pageLogin.LoginName.SendKeys(TEL);
+            Assert.AreEqual(pageLogin.LoginName.GetAttribute("value"), "+375 (29) 650-22-59");
 
-            IWebElement submit = driver.FindElement(By.CssSelector("button[type = 'submit']"));
-            submit.Click();
+            pageLogin.LoginPassword.Click();
+            pageLogin.LoginPassword.SendKeys(PASS);
+            Assert.AreEqual(pageLogin.LoginPassword.GetAttribute("type"), "password");
 
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeWait));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("user_fio")));
+            pageLogin.LoginSubmit.Click();
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TIME_WAIT));
+            wait.Until(ExpectedConditions.ElementToBeClickable(pageLogin.LoginCheckFIO));
 
             string myUrl = driver.Url;
-            Assert.AreEqual(edostavkaURL, myUrl);
+            Assert.AreEqual(EDOSTAVKA_URL, myUrl);
 
-            IWebElement userFIO = driver.FindElement(By.ClassName("user_fio"));
-            string checkFIO = userFIO.Text;
-            Assert.AreEqual(checkFIO, FIO);
+            Assert.AreEqual(pageLogin.LoginCheckFIO.Text, FIO);
         }
     }
 }
