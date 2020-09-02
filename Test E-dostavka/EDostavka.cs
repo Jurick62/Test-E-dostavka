@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using Test_E_dostavka.Pages;
+using Test_E_dostavka.Tests;
+using Test_E_dostavka.WrapperFactory;
 
 namespace SeleniumTest_1
 {
@@ -14,21 +13,19 @@ namespace SeleniumTest_1
         const string FIO = "Юрий\r\nТеуш";
         const int TIME_WAIT = 10;
 
-        IWebDriver driver = new ChromeDriver();
-
         [OneTimeSetUp] 
         public void OneTimeSetUp()
         {
-            driver.Url = EDOSTAVKA_URL;
-            var pageMain = new PageMain(driver);
-            pageMain.ClickLoginButton();
-            pageMain.WaitUntailTitleContains(TIME_WAIT);
+            BrowserFactory.InitBrowser("Chrome");
+            BrowserFactory.LoadApplication(EDOSTAVKA_URL);
+            var mainPageTests = new MainPageTests(BrowserFactory.MyDriver);
+            mainPageTests.ClickLoginButton(TIME_WAIT);
         }
 
         [OneTimeTearDown] 
         public void OneTimeTearDown()
         {
-            driver.Quit();
+            BrowserFactory.CloseAllDrivers();
         }
 
         [SetUp] 
@@ -44,28 +41,14 @@ namespace SeleniumTest_1
         [Test, Order(1)]
         public void LOGIN_CHECK_TEST()
         {
-            Assert.AreEqual("https://e-account.by/login/", driver.Url);
+            MainPageTests.LoginCheckTest(BrowserFactory.MyDriver.Url);
         }
 
         [Test, Order(2)]
         public void AUTHENTICATION_TEST()
         {
-
-            var pageLogin = new PageLogin(driver);
-            Assert.IsNotNull(pageLogin.LoginPerson);
-
-            Assert.AreEqual(pageLogin.SendLoginName(TEL), "+375 (29) 650-22-59");
-
-            Assert.AreEqual(pageLogin.SendLoginPassword(PASS), "password");
-
-            pageLogin.ClickLoginSubmit();
-
-            pageLogin.WaitUntailToBeClickable(driver, TIME_WAIT);
-
-            string myUrl = driver.Url;
-            Assert.AreEqual(EDOSTAVKA_URL, myUrl);
-
-            Assert.AreEqual(pageLogin.CheckLoginFIO(), FIO);
+            var loginTests = new LoginTests(BrowserFactory.MyDriver);
+            loginTests.AuthentictationTest(EDOSTAVKA_URL, TEL, PASS, FIO, TIME_WAIT);
         }
     }
 }

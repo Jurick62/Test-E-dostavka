@@ -1,10 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using Test_E_dostavka.WrapperFactory;
 
-namespace Test_E_dostavka.Pages
+namespace Test_E_dostavka.Tests
 {
-    class PageLogin
+    class LoginTests
     {
         public IWebDriver driver;
 
@@ -23,41 +25,28 @@ namespace Test_E_dostavka.Pages
         [FindsBy(How = How.ClassName, Using = "user_fio")]
         private IWebElement LoginCheckFIO { get; set; }
 
-        public PageLogin(IWebDriver driver)
+        public LoginTests(IWebDriver driver)
         {
-            this.driver = driver;
-            PageFactory.InitElements(driver, this);
+            this.driver = BrowserFactory.MyDriver;
+            PageFactory.InitElements(BrowserFactory.MyDriver, this);
         }
-
-        public string SendLoginName(string tel)
+        public void AuthentictationTest(string url, string tel, string pass, string fio, int timeWait)
         {
+            Assert.IsNotNull(LoginPerson);
             LoginName.Click();
             LoginName.SendKeys(tel);
-            return LoginName.GetAttribute("value");
-        }
-
-        public string SendLoginPassword(string pass)
-        {
+            Assert.AreEqual(LoginName.GetAttribute("value"), "+375 (29) 650-22-59");
             LoginPassword.Click();
             LoginPassword.SendKeys(pass);
-            return LoginPassword.GetAttribute("type");
-        }
-
-        public void ClickLoginSubmit()
-        {
+            Assert.AreEqual(LoginPassword.GetAttribute("type"), "password");
             LoginSubmit.Click();
-        }
-
-        public string CheckLoginFIO()
-        {
-            return LoginCheckFIO.Text;
-        }
-
-        public void WaitUntailToBeClickable(IWebDriver driver, int timeWait)
-        {
             WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeWait));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(LoginCheckFIO));
-        }
 
+            string myUrl = driver.Url;
+            Assert.AreEqual(url, myUrl);
+
+            Assert.AreEqual(LoginCheckFIO.Text, fio);
+        }
     }
 }
