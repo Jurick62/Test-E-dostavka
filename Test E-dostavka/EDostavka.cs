@@ -18,8 +18,8 @@ namespace SeleniumTest_1
         {
             BrowserFactory.InitBrowser("Chrome");
             BrowserFactory.LoadApplication(EDOSTAVKA_URL);
-            var mainPageTests = new MainPageTests(BrowserFactory.MyDriver);
-            mainPageTests.ClickLoginButton(TIME_WAIT);
+            var mainPageTests = new MainPageTests();
+            mainPageTests.ClickLoginButton();
         }
 
         [OneTimeTearDown] 
@@ -41,13 +41,14 @@ namespace SeleniumTest_1
         [Test, Order(1)]
         public void LOGIN_CHECK_TEST()
         {
-            MainPageTests.LoginCheckTest(BrowserFactory.MyDriver.Url);
+            var mainPageTests = new MainPageTests();
+            mainPageTests.LoginCheckTest(BrowserFactory.MyDriver.Url);
         }
 
         [Test, Order(2)]
         public void AUTHENTICATION_TEST()
         {
-            var loginTests = new LoginTests(BrowserFactory.MyDriver);
+            var loginTests = new LoginTests();
             loginTests.AuthentictationTest(EDOSTAVKA_URL, TEL, PASS, FIO, TIME_WAIT);
         }
     }

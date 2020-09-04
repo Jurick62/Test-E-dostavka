@@ -9,17 +9,12 @@ namespace Test_E_dostavka.Pages
         private IWebDriver driver;
 
         [FindsBy(How = How.LinkText, Using = "Войти")]
-        private IWebElement LoginButton { get; set; }
+        public IWebElement LoginButton { get; private set; }
 
         public PageMain(IWebDriver driver)
         {
             this.driver = driver;
             PageFactory.InitElements(driver, this);
-        }
-
-        public void ClickLoginButton()
-        {
-            LoginButton.Click();
         }
 
         public void WaitUntailTitleContains(int timeWait)

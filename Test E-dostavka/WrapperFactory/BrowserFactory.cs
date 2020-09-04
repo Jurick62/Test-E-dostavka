@@ -34,7 +34,7 @@ namespace Test_E_dostavka.WrapperFactory
                 case "Firefox":
                     if (driver == null)
                     {
-                        driver = new FirefoxDriver(@"C:\PathTo\Firefox");
+                        driver = new FirefoxDriver();
                         Drivers.Add("Firefox", MyDriver);
                     }
                     break;
@@ -42,7 +42,7 @@ namespace Test_E_dostavka.WrapperFactory
                 case "Opera":
                     if (driver == null)
                     {
-                        driver = new OperaDriver(@"C:\PathTo\Opera");
+                        driver = new OperaDriver();
                         Drivers.Add("Opera", MyDriver);
                     }
                     break;

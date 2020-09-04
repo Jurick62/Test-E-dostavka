@@ -1,34 +1,25 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using OpenQA.Selenium.Support.UI;
 using Test_E_dostavka.WrapperFactory;
+using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
     class MainPageTests
     {
-        private IWebDriver driver;
+        PageMain pageMain = new PageMain(BrowserFactory.MyDriver);
+        IWebDriver driver = BrowserFactory.MyDriver;
 
-        [FindsBy(How = How.LinkText, Using = "Войти")]
-        private IWebElement LoginButton { get; set; }
-
-        public MainPageTests(IWebDriver driver)
+        public void LoginCheckTest(string driverURL)
         {
-            this.driver = BrowserFactory.MyDriver;
-            PageFactory.InitElements(BrowserFactory.MyDriver, this);
-        }
-
-        public void ClickLoginButton(int timeWait)
-        {
-            LoginButton.Click();
-            WebDriverWait wait = new WebDriverWait(this.driver, System.TimeSpan.FromSeconds(timeWait));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Единый аккаунт для всех проектов"));
-        }
-
-        public static void LoginCheckTest(string driverURL)
-        {
+            PageFactory.InitElements(BrowserFactory.MyDriver, pageMain);
             Assert.AreEqual("https://e-account.by/login/", driverURL);
+        }
+
+        public void ClickLoginButton()
+        {
+            pageMain.LoginButton.Click();
         }
     }
 }
