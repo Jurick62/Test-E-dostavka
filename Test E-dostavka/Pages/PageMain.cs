@@ -6,7 +6,7 @@ namespace Test_E_dostavka.Pages
 {
     class PageMain
     {
-        private IWebDriver driver;
+        readonly private IWebDriver driver;
 
         [FindsBy(How = How.LinkText, Using = "Войти")]
         public IWebElement LoginButton { get; private set; }

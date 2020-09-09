@@ -4,11 +4,18 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Opera;
+using Test_E_dostavka.Tests;
 
 namespace Test_E_dostavka.WrapperFactory
 {
-    class BrowserFactory
+    class BrowserFactory : ReadXMLValue
     {
+        const string EDOSTAVKA_URL = "https://e-dostavka.by/";
+        public void Read()
+        {
+            GetValueFromXML();
+        }
+
         private static readonly IDictionary<string, IWebDriver> Drivers = new Dictionary<string, IWebDriver>();
         private static IWebDriver driver;
 
@@ -27,39 +34,40 @@ namespace Test_E_dostavka.WrapperFactory
             }
         }
 
-        public static void InitBrowser(string browserName)
+        public static void InitBrowser(string browserName, string driverPath)
         {
             switch (browserName)
             {
-                case "Firefox":
+                case "firefox":
                     if (driver == null)
                     {
-                        driver = new FirefoxDriver();
+                        driver = new FirefoxDriver(@driverPath);
                         Drivers.Add("Firefox", MyDriver);
                     }
                     break;
 
-                case "Opera":
+                case "opera":
                     if (driver == null)
                     {
-                        driver = new OperaDriver();
+                        driver = new OperaDriver(@driverPath);
                         Drivers.Add("Opera", MyDriver);
                     }
                     break;
 
-                case "Chrome":
+                case "chrome":
                     if (driver == null)
                     {
-                        driver = new ChromeDriver();
+                        driver = new ChromeDriver(@driverPath);
                         Drivers.Add("Chrome", MyDriver);
                     }
                     break;
             }
         }
 
-        public static void LoadApplication(string url)
+        public static void LoadApplication()
         {
-            MyDriver.Url = url;
+           driver.Manage().Window.Maximize(); 
+           MyDriver.Url = EDOSTAVKA_URL;
         }
 
         public static void CloseAllDrivers()

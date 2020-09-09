@@ -6,10 +6,11 @@ using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
-    class LoginTests
+    class LoginTests : ReadXMLValue
     {
-        public void AuthentictationTest(string url, string tel, string pass, string fio, int timeWait)
+        public void AuthentictationTest()
         {
+            GetValueFromXML();
             IWebDriver driver = BrowserFactory.MyDriver;
             PageFactory.InitElements(BrowserFactory.MyDriver, this);
             var pageLogin = new PageLogin(BrowserFactory.MyDriver);
@@ -20,7 +21,7 @@ namespace Test_E_dostavka.Tests
             pageLogin.WaitUntailToBeClickable(driver, timeWait);
 
             string myUrl = driver.Url;
-            Assert.AreEqual(url, myUrl);
+            Assert.AreEqual(edostavkaURL, myUrl);
 
             Assert.AreEqual(pageLogin.CheckLoginFIO(), fio);
         }
