@@ -3,4 +3,6 @@
 /Test E-dostavka/bin/*/
 /Test E-dostavka/obj
 /*.doc
-/*.rar
+*.rar
+/Test E-dostavka/Tests/*/
+

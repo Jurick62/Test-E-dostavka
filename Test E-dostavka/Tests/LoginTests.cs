@@ -6,11 +6,10 @@ using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
-    class LoginTests : ReadXMLValue
+    class LoginTests : ReadConfigValue
     {
-        public void AuthentictationTest()
+        public void AuthentictationTest(string tel, string pass, string fio, string edostavkaURL, int timeWait)
         {
-            GetValueFromXML();
             IWebDriver driver = BrowserFactory.MyDriver;
             PageFactory.InitElements(BrowserFactory.MyDriver, this);
             var pageLogin = new PageLogin(BrowserFactory.MyDriver);

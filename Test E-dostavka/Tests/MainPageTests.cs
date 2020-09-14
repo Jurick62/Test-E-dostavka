@@ -5,7 +5,7 @@ using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
-    class MainPageTests : ReadXMLValue
+    class MainPageTests : ReadConfigValue
     {
         PageMain pageMain = new PageMain(BrowserFactory.MyDriver);
 
@@ -18,7 +18,6 @@ namespace Test_E_dostavka.Tests
         public void ClickLoginButton()
         {
             int timeWait = 0;
-            GetValueFromXML();
             pageMain.LoginButton.Click();
             pageMain.WaitUntailTitleContains(timeWait);
         }

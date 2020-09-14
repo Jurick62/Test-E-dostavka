@@ -8,14 +8,8 @@ using Test_E_dostavka.Tests;
 
 namespace Test_E_dostavka.WrapperFactory
 {
-    class BrowserFactory : ReadXMLValue
+    class BrowserFactory : ReadConfigValue
     {
-        const string EDOSTAVKA_URL = "https://e-dostavka.by/";
-        public void Read()
-        {
-            GetValueFromXML();
-        }
-
         private static readonly IDictionary<string, IWebDriver> Drivers = new Dictionary<string, IWebDriver>();
         private static IWebDriver driver;
 
@@ -64,10 +58,10 @@ namespace Test_E_dostavka.WrapperFactory
             }
         }
 
-        public static void LoadApplication()
+        public static void LoadApplication(string url)
         {
            driver.Manage().Window.Maximize(); 
-           MyDriver.Url = EDOSTAVKA_URL;
+           MyDriver.Url = url;
         }
 
         public static void CloseAllDrivers()

@@ -1,17 +1,22 @@
 # Test-E-dostavka
 
 The project works with the following browsers: Google chrome, Firefox, Operà.  
-To select the required browser in the Constants.xml file, on line 8, the "select" node,  
-specify the name of one of the three browsers: "firefox", "opera" or "chrome".  
-In the appropriate node (<firefox>, <opera>, or <chrome>) specify the path to the driver of the selected browser in the "pacage" folder of your project.  
+To set up the configuration in the Tests directory, add the Constants file with the ".csv", ".xml" or ".xlsx" extension with the following fields:
+"tel" is the phone number of the registered account;
+"pass" - the password of the registered account;
+"fio" - last name, first name like "Last name \ r \ n \ First name";
+"url" - URL address of the start page;
+"wait" - time to wait in seconds, as text;
+"browser" - specify the name of one of the three browsers: "firefox", "opera" or "chrome";
+"path" - specify the path to the driver of the selected browser in the "pacage" folder of your project.
 The project contains the following files:  
 EDostavka.cs  
 /Pages/PageLogin.cs  
 /Pages/PageMain.cs  
 /Tests/LoginTests.cs  
 /Tests/MainPageTests.cs  
-/Tests/ReadXMLValue.cs  
-/Tests/Constants.xml  
+/Tests/ReadConfigValue.cs  
+/Tests/Constants.xlsx  
 /WrapperFactory/BrowserFactory.cs  
   
 Test repository of the "Test E-dostavka" project.  
