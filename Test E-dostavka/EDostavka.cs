@@ -44,11 +44,8 @@ namespace SeleniumTest_1
         [Test, Order(2)]
         public void AUTHENTICATION_TEST()
         {
-            ReadConfigValue readConfig = new ReadConfigValue();
-            readConfig.FindeConfigFile();
             var loginTests = new LoginTests();
-            loginTests.AuthentictationTest(readConfig.tel, readConfig.pass, readConfig.fio,
-                readConfig.edostavkaURL, readConfig.timeWait);
+            loginTests.AuthentictationTest();
         }
     }
 }

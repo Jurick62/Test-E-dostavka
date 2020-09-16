@@ -8,7 +8,7 @@ using Test_E_dostavka.Tests;
 
 namespace Test_E_dostavka.WrapperFactory
 {
-    class BrowserFactory : ReadConfigValue
+    class BrowserFactory
     {
         private static readonly IDictionary<string, IWebDriver> Drivers = new Dictionary<string, IWebDriver>();
         private static IWebDriver driver;

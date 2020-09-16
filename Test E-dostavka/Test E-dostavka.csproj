@@ -107,14 +107,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\MainPageTests.cs" />
-    <Compile Include="Tests\ReadConfigValue.cs" />
+    <Compile Include="WrapperFactory\ReadConfigValue.cs" />
     <Compile Include="WrapperFactory\BrowserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tests\Constants.xml">
+    <Content Include="Constants\Constants.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

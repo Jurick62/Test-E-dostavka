@@ -6,23 +6,26 @@ using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
-    class LoginTests : ReadConfigValue
+    class LoginTests
     {
-        public void AuthentictationTest(string tel, string pass, string fio, string edostavkaURL, int timeWait)
+        public void AuthentictationTest()
         {
+            ReadConfigValue readConfig = new ReadConfigValue();
+            readConfig.FindeConfigFile();
+
             IWebDriver driver = BrowserFactory.MyDriver;
             PageFactory.InitElements(BrowserFactory.MyDriver, this);
             var pageLogin = new PageLogin(BrowserFactory.MyDriver);
             Assert.IsNotNull(pageLogin.LoginPerson);
-            Assert.AreEqual(pageLogin.SendLoginName(tel), "+375 (29) 650-22-59");
-            Assert.AreEqual(pageLogin.SendLoginPassword(pass), "password");
+            Assert.AreEqual(pageLogin.SendLoginName(readConfig.tel), "+375 (29) 650-22-59");
+            Assert.AreEqual(pageLogin.SendLoginPassword(readConfig.pass), "password");
             pageLogin.ClickLoginSubmit();
-            pageLogin.WaitUntailToBeClickable(driver, timeWait);
+            pageLogin.WaitUntailToBeClickable(driver, readConfig.timeWait);
 
             string myUrl = driver.Url;
-            Assert.AreEqual(edostavkaURL, myUrl);
+            Assert.AreEqual(readConfig.edostavkaURL, myUrl);
 
-            Assert.AreEqual(pageLogin.CheckLoginFIO(), fio);
+            Assert.AreEqual(pageLogin.CheckLoginFIO(), readConfig.fio);
         }
     }
 }

@@ -5,7 +5,7 @@ using Test_E_dostavka.Pages;
 
 namespace Test_E_dostavka.Tests
 {
-    class MainPageTests : ReadConfigValue
+    class MainPageTests
     {
         PageMain pageMain = new PageMain(BrowserFactory.MyDriver);
 

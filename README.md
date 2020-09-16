@@ -8,16 +8,7 @@ To set up the configuration in the Tests directory, add the Constants file with 
 "url" - URL address of the start page;
 "wait" - time to wait in seconds, as text;
 "browser" - specify the name of one of the three browsers: "firefox", "opera" or "chrome";
-"path" - specify the path to the driver of the selected browser in the "pacage" folder of your project.
-The project contains the following files:  
-EDostavka.cs  
-/Pages/PageLogin.cs  
-/Pages/PageMain.cs  
-/Tests/LoginTests.cs  
-/Tests/MainPageTests.cs  
-/Tests/ReadConfigValue.cs  
-/Tests/Constants.xlsx  
-/WrapperFactory/BrowserFactory.cs  
+"path" - specify the path to the driver of the selected browser in the "package" folder of your project.
   
 Test repository of the "Test E-dostavka" project.  
 Browser: Google Chrome. Version 84.0.4147.125, 64-bit.  
