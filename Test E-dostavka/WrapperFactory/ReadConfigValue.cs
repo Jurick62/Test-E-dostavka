@@ -8,134 +8,139 @@ namespace Test_E_dostavka.Tests
 {
     class ReadConfigValue
     {
-        public string searchPath = Environment.CurrentDirectory + "\\Constants\\Constants";
-        public string[] exstensions = new string[] { ".csv", ".xml", ".xlsx" };
-        public string tel = "";
-        public string pass = "";
-        public string fio = "";
-        public string edostavkaURL = "";
-        public string browserName = "";
-        public string driverPath = "";
-        public int timeWait = 0;
+        public int TimeWait { get; set; }
+        public string Tel { get; private set; }
+        public string Pass { get; private set; }
+        public string Fio { get; private set; }
+        public string EdostavkaURL { get; set; }
+        public string BrowserName { get; set; }
 
-        public int FindeConfigFile()
+        public string SearchPath
         {
-            foreach(string fileType in exstensions)
+            get
             {
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                return path.Substring(0, path.IndexOf("bin")) + "Constants\\Constants";
+            }
+        }
+
+        public string[] Exstensions
+        {
+            get
+            {
+                return new string[] { ".csv", ".xml", ".xlsx" };
+            }
+        }
+
+        public void FindeConfigFile()
+        {
+            foreach(string fileType in Exstensions)
+            {
+                string searchPath = SearchPath + fileType;
+                FileInfo filePath = new FileInfo(searchPath);
                 switch (fileType)
                 {
                     case ".csv":
-                        FileInfo filePathCSV = new FileInfo(searchPath + fileType);
-                        if (filePathCSV.Exists)
+                        ;
+                        if (filePath.Exists)
                         {
-                            searchPath += fileType;
                             GetValueFromCSV(searchPath);
                         }
                         break;
 
                     case ".xml":
-                        FileInfo filePathXML = new FileInfo(searchPath + fileType);
-                        if (filePathXML.Exists)
+                        if (filePath.Exists)
                         {
-                            searchPath += fileType;
                             GetValueFromXML(searchPath);
                         }
                         break;
 
                     case ".xlsx":
-                        FileInfo filePathXLSX = new FileInfo(searchPath + fileType);
-                        if (filePathXLSX.Exists)
+                        if (filePath.Exists)
                         {
-                            searchPath += fileType;
                             GetValueFromXLSX(searchPath);
                         }
                         break;
                 }
+                break;
             }
-            return 1;
         }
 
-        private void GetValueFromCSV(string searchPath)
+        private void GetValueFromCSV(string SearchPath)
         {
-            using (TextFieldParser csvParser = new TextFieldParser(searchPath))
+            using (TextFieldParser csvParser = new TextFieldParser(SearchPath))
             {
                 csvParser.SetDelimiters(";");
                 csvParser.HasFieldsEnclosedInQuotes = false;
                 csvParser.ReadLine();
 
                 string[] fields = csvParser.ReadFields();
-                tel = fields[0];
-                pass = fields[1];
-                fio = fields[2];
-                fio = fio.Replace("\\r", "\r");
-                fio = fio.Replace("\\n", "\n");
-                edostavkaURL = fields[3];
-                timeWait = int.Parse(fields[4]);
-                browserName = fields[5];
-                driverPath = fields[6];
+                Tel = fields[0];
+                Pass = fields[1];
+                Fio = fields[2];
+                Fio = Fio.Replace("\\r", "\r");
+                Fio = Fio.Replace("\\n", "\n");
+                EdostavkaURL = fields[3];
+                TimeWait = int.Parse(fields[4]);
+                BrowserName = fields[5];
             }
         }
 
-        private void GetValueFromXML(string searchPath)
+        private void GetValueFromXML(string SearchPath)
         {
             XmlDocument xConst = new XmlDocument();
-            xConst.Load(searchPath);
+            xConst.Load(SearchPath);
 
             foreach (XmlNode constPair in xConst.DocumentElement.ChildNodes)
             {
                 switch (constPair.Name)
                 {
                     case "tel":
-                        tel = constPair.InnerText;
+                        Tel = constPair.InnerText;
                         break;
 
                     case "pass":
-                        pass = constPair.InnerText;
+                        Pass = constPair.InnerText;
                         break;
 
                     case "fio":
-                        fio = constPair.InnerText;
-                        fio = fio.Replace("\\r", "\r");
-                        fio = fio.Replace("\\n", "\n");
+                        Fio = constPair.InnerText;
+                        Fio = Fio.Replace("\\r", "\r");
+                        Fio = Fio.Replace("\\n", "\n");
                         break;
 
                     case "url":
-                        edostavkaURL = constPair.InnerText;
+                        EdostavkaURL = constPair.InnerText;
                         break;
 
                     case "wait":
-                        timeWait = int.Parse(constPair.InnerText);
+                        TimeWait = int.Parse(constPair.InnerText);
                         break;
 
                     case "browser":
-                        browserName = constPair.InnerText;
-                        break;
-
-                    case "path":
-                        driverPath = constPair.InnerText;
+                        BrowserName = constPair.InnerText;
                         break;
                 }
             }
         }
 
-        private void GetValueFromXLSX(string searchPath)
+        private void GetValueFromXLSX(string SearchPath)
         {
-            using (var stream = File.Open(searchPath, FileMode.Open, FileAccess.Read))
+            using (FileStream stream = File.Open(SearchPath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     reader.Read();
                     reader.Read();
-                    tel = reader.GetString(0);
-                    pass = reader.GetString(1);
-                    fio = reader.GetString(2);
-                    fio = fio.Replace("\\r", "\r");
-                    fio = fio.Replace("\\n", "\n");
-                    edostavkaURL = reader.GetString(3);
+                    Tel = reader.GetString(0);
+                    Pass = reader.GetString(1);
+                    Fio = reader.GetString(2);
+                    Fio = Fio.Replace("\\r", "\r");
+                    Fio = Fio.Replace("\\n", "\n");
+                    EdostavkaURL = reader.GetString(3);
                     string wait = reader.GetString(4);
-                    timeWait = int.Parse(wait);
-                    browserName = reader.GetString(5);
-                    driverPath = reader.GetString(6);
+                    TimeWait = int.Parse(wait);
+                    BrowserName = reader.GetString(5);
                 }
             }
         }

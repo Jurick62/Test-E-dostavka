@@ -1,14 +1,13 @@
 # Test-E-dostavka
 
 The project works with the following browsers: Google chrome, Firefox, Operà.  
-To set up the configuration in the Tests directory, add the Constants file with the ".csv", ".xml" or ".xlsx" extension with the following fields:
-"tel" is the phone number of the registered account;
-"pass" - the password of the registered account;
-"fio" - last name, first name like "Last name \ r \ n \ First name";
-"url" - URL address of the start page;
-"wait" - time to wait in seconds, as text;
-"browser" - specify the name of one of the three browsers: "firefox", "opera" or "chrome";
-"path" - specify the path to the driver of the selected browser in the "package" folder of your project.
+To set up the configuration in the Tests directory, add the Constants file with the ".csv", ".xml" or ".xlsx" extension with the following fields:  
+"tel" is the phone number of the registered account;  
+"pass" - the password of the registered account;  
+"fio" - last name, first name like "Last name \ r \ n \ First name";  
+"url" - URL address of the start page;  
+"wait" - time to wait in seconds, as text;  
+"browser" - specify the name of one of the three browsers: "firefox", "opera" or "chrome";  
   
 Test repository of the "Test E-dostavka" project.  
 Browser: Google Chrome. Version 84.0.4147.125, 64-bit.  

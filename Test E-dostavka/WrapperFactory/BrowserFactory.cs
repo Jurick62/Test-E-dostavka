@@ -4,7 +4,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Opera;
-using Test_E_dostavka.Tests;
 
 namespace Test_E_dostavka.WrapperFactory
 {
@@ -28,14 +27,16 @@ namespace Test_E_dostavka.WrapperFactory
             }
         }
 
-        public static void InitBrowser(string browserName, string driverPath)
+        public static void InitBrowser(string browserName)
         {
+            string driverPath = ("D:/Jurick/Coding/TestProject/Test E-dostavka/packages/");
             switch (browserName)
             {
                 case "firefox":
                     if (driver == null)
                     {
-                        driver = new FirefoxDriver(@driverPath);
+                        driverPath += "Selenium.Firefox.WebDriver.0.27.0/driver/";
+                        driver = new FirefoxDriver(driverPath);
                         Drivers.Add("Firefox", MyDriver);
                     }
                     break;
@@ -43,6 +44,7 @@ namespace Test_E_dostavka.WrapperFactory
                 case "opera":
                     if (driver == null)
                     {
+                        driverPath += "Selenium.Opera.WebDriver.2.30.0/driver/";
                         driver = new OperaDriver(@driverPath);
                         Drivers.Add("Opera", MyDriver);
                     }
@@ -51,6 +53,7 @@ namespace Test_E_dostavka.WrapperFactory
                 case "chrome":
                     if (driver == null)
                     {
+                        driverPath += "Selenium.Chrome.WebDriver.85.0.0/driver/";
                         driver = new ChromeDriver(@driverPath);
                         Drivers.Add("Chrome", MyDriver);
                     }

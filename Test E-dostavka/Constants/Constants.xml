@@ -5,7 +5,6 @@
   <fio>Юрий\r\nТеуш</fio>
   <url>https://e-dostavka.by/</url>
   <wait>10</wait>
-  <browser>chrome</browser>
-  <path>D:/Jurick/Coding/TestProject/Test E-dostavka/packages/Selenium.Chrome.WebDriver.85.0.0/driver/</path>
+  <browser>firefox</browser>
 </constants>
           

@@ -12,8 +12,8 @@ namespace SeleniumTest_1
         {
             ReadConfigValue readConfig = new ReadConfigValue();
             readConfig.FindeConfigFile();
-            BrowserFactory.InitBrowser(readConfig.browserName, readConfig.driverPath);
-            BrowserFactory.LoadApplication(readConfig.edostavkaURL);
+            BrowserFactory.InitBrowser(readConfig.BrowserName);
+            BrowserFactory.LoadApplication(readConfig.EdostavkaURL);
             MainPageTests mainPageTests = new MainPageTests();
             mainPageTests.ClickLoginButton();
         }

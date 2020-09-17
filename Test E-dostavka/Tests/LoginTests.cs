@@ -17,15 +17,15 @@ namespace Test_E_dostavka.Tests
             PageFactory.InitElements(BrowserFactory.MyDriver, this);
             var pageLogin = new PageLogin(BrowserFactory.MyDriver);
             Assert.IsNotNull(pageLogin.LoginPerson);
-            Assert.AreEqual(pageLogin.SendLoginName(readConfig.tel), "+375 (29) 650-22-59");
-            Assert.AreEqual(pageLogin.SendLoginPassword(readConfig.pass), "password");
+            Assert.AreEqual(pageLogin.SendLoginName(readConfig.Tel), "+375 (29) 650-22-59");
+            Assert.AreEqual(pageLogin.SendLoginPassword(readConfig.Pass), "password");
             pageLogin.ClickLoginSubmit();
-            pageLogin.WaitUntailToBeClickable(driver, readConfig.timeWait);
+            pageLogin.WaitUntailToBeClickable(driver, readConfig.TimeWait);
 
             string myUrl = driver.Url;
-            Assert.AreEqual(readConfig.edostavkaURL, myUrl);
+            Assert.AreEqual(readConfig.EdostavkaURL, myUrl);
 
-            Assert.AreEqual(pageLogin.CheckLoginFIO(), readConfig.fio);
+            Assert.AreEqual(pageLogin.CheckLoginFIO(), readConfig.Fio);
         }
     }
 }
