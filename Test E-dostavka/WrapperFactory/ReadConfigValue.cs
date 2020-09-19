@@ -14,8 +14,7 @@ namespace Test_E_dostavka.Tests
         public string Fio { get; private set; }
         public string EdostavkaURL { get; set; }
         public string BrowserName { get; set; }
-        string[] extensions = { ".csv", ".xml", ".xlsx" };
-        enum Extensions : byte
+        public enum Extensions : byte
         {
             csv,
             xml,
@@ -33,22 +32,23 @@ namespace Test_E_dostavka.Tests
 
         public void ReadConfigFile()
         {
-            string fileType = extensions[(byte)Extensions.csv];
-            string searchPath = SearchPath + fileType;
+            string searchPath = SearchPath + ".csv";
             FileInfo filePath = new FileInfo(searchPath);
             if (!filePath.Exists)
                 return;
-            switch (fileType)
+            Extensions ext;
+            ext = Extensions.csv;
+            switch (ext)
             {
-                case ".csv":
+                case Extensions.csv:
                     GetValueFromCSV(searchPath);
                     break;
 
-                case ".xml":
+                case Extensions.xml:
                     GetValueFromXML(searchPath);
                     break;
 
-                case ".xlsx":
+                case Extensions.xlsx:
                     GetValueFromXLSX(searchPath);
                     break;
 

@@ -15,7 +15,7 @@ namespace SeleniumTest_1
             BrowserFactory.InitBrowser(readConfig.BrowserName);
             BrowserFactory.LoadApplication(readConfig.EdostavkaURL);
             MainPageTests mainPageTests = new MainPageTests();
-            mainPageTests.ClickLoginButton();
+            mainPageTests.ClickLoginButton(readConfig.TimeWait);
         }
 
         [OneTimeTearDown]

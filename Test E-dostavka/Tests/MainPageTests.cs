@@ -15,9 +15,8 @@ namespace Test_E_dostavka.Tests
             Assert.AreEqual("https://e-account.by/login/", driverURL);
         }
 
-        public void ClickLoginButton()
+        public void ClickLoginButton(int timeWait)
         {
-            int timeWait = 0;
             pageMain.LoginButton.Click();
             pageMain.WaitUntailTitleContains(timeWait);
         }
