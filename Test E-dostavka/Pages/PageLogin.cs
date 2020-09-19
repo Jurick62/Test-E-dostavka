@@ -50,7 +50,10 @@ namespace Test_E_dostavka.Pages
 
         public string CheckLoginFIO()
         {
-            return LoginCheckFIO.Text;
+            string replaceSpecialSymbol = LoginCheckFIO.Text;
+            replaceSpecialSymbol = replaceSpecialSymbol.Insert(replaceSpecialSymbol.IndexOf("\r"), " ");
+            replaceSpecialSymbol = replaceSpecialSymbol.Remove(replaceSpecialSymbol.IndexOf("\r"), 2);
+            return replaceSpecialSymbol;
         }
 
         public void WaitUntailToBeClickable(IWebDriver driver, int timeWait)

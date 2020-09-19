@@ -14,6 +14,13 @@ namespace Test_E_dostavka.Tests
         public string Fio { get; private set; }
         public string EdostavkaURL { get; set; }
         public string BrowserName { get; set; }
+        string[] extensions = { ".csv", ".xml", ".xlsx" };
+        enum Extensions : byte
+        {
+            csv,
+            xml,
+            xlsx,
+        }
 
         public string SearchPath
         {
@@ -24,45 +31,29 @@ namespace Test_E_dostavka.Tests
             }
         }
 
-        public string[] Exstensions
+        public void ReadConfigFile()
         {
-            get
+            string fileType = extensions[(byte)Extensions.csv];
+            string searchPath = SearchPath + fileType;
+            FileInfo filePath = new FileInfo(searchPath);
+            if (!filePath.Exists)
+                return;
+            switch (fileType)
             {
-                return new string[] { ".csv", ".xml", ".xlsx" };
-            }
-        }
+                case ".csv":
+                    GetValueFromCSV(searchPath);
+                    break;
 
-        public void FindeConfigFile()
-        {
-            foreach(string fileType in Exstensions)
-            {
-                string searchPath = SearchPath + fileType;
-                FileInfo filePath = new FileInfo(searchPath);
-                switch (fileType)
-                {
-                    case ".csv":
-                        ;
-                        if (filePath.Exists)
-                        {
-                            GetValueFromCSV(searchPath);
-                        }
-                        break;
+                case ".xml":
+                    GetValueFromXML(searchPath);
+                    break;
 
-                    case ".xml":
-                        if (filePath.Exists)
-                        {
-                            GetValueFromXML(searchPath);
-                        }
-                        break;
+                case ".xlsx":
+                    GetValueFromXLSX(searchPath);
+                    break;
 
-                    case ".xlsx":
-                        if (filePath.Exists)
-                        {
-                            GetValueFromXLSX(searchPath);
-                        }
-                        break;
-                }
-                break;
+                default:
+                    break;
             }
         }
 
@@ -78,8 +69,6 @@ namespace Test_E_dostavka.Tests
                 Tel = fields[0];
                 Pass = fields[1];
                 Fio = fields[2];
-                Fio = Fio.Replace("\\r", "\r");
-                Fio = Fio.Replace("\\n", "\n");
                 EdostavkaURL = fields[3];
                 TimeWait = int.Parse(fields[4]);
                 BrowserName = fields[5];
@@ -105,8 +94,6 @@ namespace Test_E_dostavka.Tests
 
                     case "fio":
                         Fio = constPair.InnerText;
-                        Fio = Fio.Replace("\\r", "\r");
-                        Fio = Fio.Replace("\\n", "\n");
                         break;
 
                     case "url":
@@ -135,8 +122,6 @@ namespace Test_E_dostavka.Tests
                     Tel = reader.GetString(0);
                     Pass = reader.GetString(1);
                     Fio = reader.GetString(2);
-                    Fio = Fio.Replace("\\r", "\r");
-                    Fio = Fio.Replace("\\n", "\n");
                     EdostavkaURL = reader.GetString(3);
                     string wait = reader.GetString(4);
                     TimeWait = int.Parse(wait);

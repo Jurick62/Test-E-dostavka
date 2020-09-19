@@ -11,7 +11,7 @@ namespace Test_E_dostavka.Tests
         public void AuthentictationTest()
         {
             ReadConfigValue readConfig = new ReadConfigValue();
-            readConfig.FindeConfigFile();
+            readConfig.ReadConfigFile();
 
             IWebDriver driver = BrowserFactory.MyDriver;
             PageFactory.InitElements(BrowserFactory.MyDriver, this);

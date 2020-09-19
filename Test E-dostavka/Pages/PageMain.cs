@@ -19,7 +19,7 @@ namespace Test_E_dostavka.Pages
 
         public void WaitUntailTitleContains(int timeWait)
         {
-            WebDriverWait wait = new WebDriverWait(this.driver, System.TimeSpan.FromSeconds(timeWait));
+            WebDriverWait wait = new WebDriverWait(driver, System.TimeSpan.FromSeconds(timeWait));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Единый аккаунт для всех проектов"));
         }
     }

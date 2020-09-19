@@ -11,7 +11,7 @@ namespace SeleniumTest_1
         public void OneTimeSetUp()
         {
             ReadConfigValue readConfig = new ReadConfigValue();
-            readConfig.FindeConfigFile();
+            readConfig.ReadConfigFile();
             BrowserFactory.InitBrowser(readConfig.BrowserName);
             BrowserFactory.LoadApplication(readConfig.EdostavkaURL);
             MainPageTests mainPageTests = new MainPageTests();
